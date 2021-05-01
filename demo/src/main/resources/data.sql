@@ -12,4 +12,4 @@ CREATE TABLE user_table (
 
 INSERT INTO user_table (id, login, password, email, name, surname, patronymic) VALUES
   (1, 'kant', 'kritika', 'kant@mail.ru', 'Иммануил', 'Кант', ''),
-  (2, 'gegel', 'dialektica', 'gegel@mail.ru', 'Вильгельм', 'Гегель', 'Фридрих')
+  (2, 'gegel', 'dialektica', 'gegel@mail.ru', 'Вильгельм', 'Гегель', 'Фридрих');
