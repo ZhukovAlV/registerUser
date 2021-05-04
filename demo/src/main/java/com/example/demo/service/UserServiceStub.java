@@ -19,7 +19,7 @@ import static java.util.Objects.isNull;
 
 @Service
 @AllArgsConstructor
-public class UserServiceImpl implements UserService {
+public class UserServiceStub implements UserService {
     private final UserRepository userRepository;
     private final UserConverter userConverter;
     private final MessagingServiceStub messagingService;
