@@ -15,7 +15,8 @@ public class MessagingServiceStub implements MessagingService {
 
     @Override
     public <T> MessageId send(Message<T> msg) {
-        return new MessageId(UUID.randomUUID());
+        msg.setId(new MessageId(UUID.randomUUID()));
+        return msg.getId();
     }
 
     @Override
