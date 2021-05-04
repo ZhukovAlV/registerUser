@@ -2,7 +2,6 @@ package com.example.demo.service;
 
 import com.example.demo.dto.UserDto;
 import com.example.demo.entity.Message;
-import com.example.demo.entity.MessageId;
 import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
 import com.sun.istack.NotNull;
@@ -12,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.xml.bind.ValidationException;
 import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 
@@ -31,7 +29,6 @@ public class UserServiceStub implements UserService {
         validateUserDto(userDto);
         User convertedUser = userConverter.fromUserDtoToUser(userDto);
         User savedUser = userRepository.save(convertedUser);
-     //   Message<UserDto> message = new Message<>(userDto);
         messagingService.doRequest(new Message<>(userDto));
         return userConverter.fromUserToUserDto(savedUser);
     }

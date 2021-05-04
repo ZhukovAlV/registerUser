@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.xml.bind.ValidationException;
 import java.util.List;
+import java.util.concurrent.TimeoutException;
 
 @RestController
 @RequestMapping("/user")
@@ -19,7 +20,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/save")
-    public UserDto saveUser(@RequestBody UserDto userDto) throws ValidationException {
+    public UserDto saveUser(@RequestBody UserDto userDto) throws ValidationException, TimeoutException {
         log.info("Handling save users: " + userDto);
         return userService.saveUser(userDto);
     }
