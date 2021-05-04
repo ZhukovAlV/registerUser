@@ -1,28 +1,37 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.UserDto;
+import com.example.demo.entity.Message;
+import com.example.demo.entity.MessageId;
 import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.xml.bind.ValidationException;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 
 @Service
 @AllArgsConstructor
-public class DefaultUserService implements UserService {
+public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserConverter userConverter;
+    private final MessagingServiceStub messagingService;
 
     @Override
-    public UserDto saveUser(UserDto userDto) throws ValidationException {
+    @Transactional
+    public UserDto saveUser(@NotNull UserDto userDto) throws ValidationException {
         validateUserDto(userDto);
         User convertedUser = userConverter.fromUserDtoToUser(userDto);
         User savedUser = userRepository.save(convertedUser);
+        Message<UserDto> message = new Message<>(new MessageId(UUID.randomUUID()),userDto);
+        messagingService.send(message);
         return userConverter.fromUserToUserDto(savedUser);
     }
 

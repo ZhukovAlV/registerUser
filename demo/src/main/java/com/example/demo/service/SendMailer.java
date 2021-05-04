@@ -1,5 +1,8 @@
 package com.example.demo.service;
 
+import com.example.demo.entity.EmailAddress;
+import com.example.demo.entity.EmailContent;
+
 import java.util.concurrent.TimeoutException;
 
 /**

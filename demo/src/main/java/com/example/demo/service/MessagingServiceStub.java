@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import com.example.demo.entity.Message;
+import com.example.demo.entity.MessageId;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
