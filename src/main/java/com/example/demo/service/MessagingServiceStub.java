@@ -15,9 +15,7 @@ public class MessagingServiceStub implements MessagingService {
 
     @Override
     public <T> MessageId send(Message<T> msg) {
-        msg.setId(new MessageId(UUID.randomUUID()));
-        // Здесь получается должна быть в будущем прописана отправка сообщения во внешнюю систему
-        return msg.getId();
+        return new MessageId(UUID.randomUUID());
     }
 
     @Override

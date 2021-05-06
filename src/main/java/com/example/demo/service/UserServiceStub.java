@@ -8,6 +8,8 @@ import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,10 +24,11 @@ import static java.util.Objects.nonNull;
 @Service
 @AllArgsConstructor
 public class UserServiceStub implements UserService {
+
     private final UserRepository userRepository;
-    private final UserConverter userConverter;
     private final MessagingServiceStub messagingService;
     private final SendMailerStub sendMailerStub;
+    private final UserConverter userConverter;
 
     @Override
     @Transactional
@@ -77,6 +80,9 @@ public class UserServiceStub implements UserService {
         if (isNull(userDto.getLogin()) || userDto.getLogin().isEmpty()) {
             throw new ValidationException("Login is empty");
         }
+        if (isNull(userDto.getPassword()) || userDto.getPassword().isEmpty()) {
+            throw new ValidationException("Password is empty");
+        }
         if (nonNull(userRepository.findByLogin(userDto.getLogin()))) {
             throw new ValidationException("Login already exists");
         }
@@ -86,7 +92,7 @@ public class UserServiceStub implements UserService {
         if (isNull(userDto.getEmail())) {
             throw new ValidationException("Email is empty");
         }
-        if (!userDto.getEmail().matches("[\\w\\s\\d]+@([\\w\\s\\d\\u002E])((ru)|(com))")) {
+        if (!userDto.getEmail().matches("[_a-zA-Z1-9]+(\\.[A-Za-z0-9]*)*@[A-Za-z0-9]+\\.[A-Za-z0-9]+(\\.[A-Za-z0-9]*)*")) {
             throw new ValidationException("Email is not correct");
         }
     }
